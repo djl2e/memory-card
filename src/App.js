@@ -1,17 +1,49 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import Board from './components/Board';
+import playerData from './data/data';
 
 function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [playerIdOrder, setPlayerIdOrder] = useState([]);
-  const [numClicked, setNumClicked] = useState({});
+  const [numClicked, setNumClicked] = useState(
+    Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])),
+  );
   const [isGameOver, setIsGameOver] = useState(false);
+
+  useEffect(() => {
+    setPlayerIdOrder(playerData.constructor.getPlayerIds());
+  });
+
+  useEffect(() => {
+    setCurrentScore(currentScore + 1);
+  }, [numClicked]);
+
+  useEffect(() => {
+    if (isGameOver) {
+      setBestScore(Math.max(bestScore, currentScore));
+      setCurrentScore(0);
+      setNumClicked(Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])));
+      setIsGameOver(false);
+    }
+  }, [isGameOver]);
+
+  function cardClicked(e) {
+    const cardId = e.target.closest('.card').id;
+    const cardPrevClicked = numClicked[cardId];
+    if (cardPrevClicked === 1) {
+      setIsGameOver(true);
+    } else {
+      setNumClicked({ ...numClicked, cardId: cardPrevClicked + 1 });
+    }
+  }
 
   return (
     <div className="container">
       <Header currentScore={currentScore} bestScore={bestScore} />
+      <Board playerIdOrder={playerIdOrder} cardClicked={(e) => { cardClicked(e); }} />
     </div>
   );
 }
