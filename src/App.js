@@ -5,6 +5,7 @@ import Board from './components/Board';
 import playerData from './data/data';
 
 function App() {
+  // const [loading, setLoading] = useState(true);
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [playerIdOrder, setPlayerIdOrder] = useState([]);
@@ -15,9 +16,11 @@ function App() {
 
   useEffect(() => {
     setPlayerIdOrder(playerData.constructor.getPlayerIds());
+    console.log('shuffle', playerIdOrder);
   }, [numClicked, isGameOver]);
 
   useEffect(() => {
+    console.log('click', numClicked);
     setCurrentScore(currentScore + 1);
   }, [numClicked]);
 
@@ -28,6 +31,7 @@ function App() {
       setNumClicked(Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])));
       setIsGameOver(false);
     }
+    console.log('gameover?');
   }, [isGameOver]);
 
   function cardClicked(e) {
@@ -37,8 +41,8 @@ function App() {
       setIsGameOver(true);
     } else {
       setNumClicked({ ...numClicked, [cardId]: cardPrevClicked + 1 });
-      console.log(cardId, numClicked);
     }
+    console.log('card', numClicked);
   }
 
   return (
