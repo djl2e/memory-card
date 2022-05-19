@@ -1,7 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Macondo&family=Ubuntu&display=swap');
+
+:root {
+  --card-background: rgba(225, 200, 250);
+  --card-hover: rgba(150, 150, 150);
+}
+
 body {
   margin: 0;
   height: 100vh;
   width: 100vw;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 25px;
 }
 
 #root, .container, .header-container {
@@ -9,11 +24,26 @@ body {
   width: 100%;
 }
 
+.loading {
+  margin: 30px 0 0 30px;
+}
+
+.loading, .header-container {
+  font-family: 'Macondo', cursive;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
+}
+
 .header-container {
   box-sizing: border-box;
-  height: 15vh;
+  height: 13vh;
   width: 100vw;
-  padding-bottom: 3vh;
+  padding-bottom: 1vh;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -25,12 +55,42 @@ body {
 }
 
 .board {
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+  padding-top: 10px;
+  width: 85vw;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.card {
+  background-color: var(--card-background);
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.card:hover {
+  transition: all 0.2s;
+  cursor: pointer;
+  background-color: var(--card-hover);
+}
+
+.card p {
+  margin: 0;
+  font-size: 15px;
 }
 
 .card img {
+  border-radius: 10px;
   height: 20vh;
   width: auto;
 }

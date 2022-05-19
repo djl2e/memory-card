@@ -1,6 +1,6 @@
 class PlayerData {
   constructor() {
-    this.data = {
+    this.name = {
       0: 'Stephen_Curry',
       1: 'Lebron_James',
       2: 'Kevin_Durant',
@@ -20,10 +20,29 @@ class PlayerData {
       16: 'Anthony_Davis',
       17: 'Trae Young',
     };
+    this.imgSrc = Object.fromEntries([...Array(18).keys()].map((key) => [key, '']));
+  }
+
+  setImgSrc(id, src) {
+    this.imgSrc[id] = src;
   }
 
   getPlayerName(id) {
-    return this.data[id];
+    return this.name[id];
+  }
+
+  getImgSrc(id) {
+    return this.imgSrc[id];
+  }
+
+  async fetchSrc() {
+    await Promise.all(
+      Object.keys(this.imgSrc).map(async (key) => {
+        const response = await fetch(`https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${this.name[key]}`, { mode: 'cors' });
+        const json = await response.json();
+        this.imgSrc[key] = await json.player[0].strThumb;
+      }),
+    );
   }
 
   static getPlayerIds() {
