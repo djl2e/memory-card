@@ -1,11 +1,12 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Board from './components/Board';
 import playerData from './data/data';
 
 function App() {
-  // const [loading, setLoading] = useState(true);
+  const isMounted = useRef(false);
+
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [playerIdOrder, setPlayerIdOrder] = useState([]);
@@ -16,13 +17,7 @@ function App() {
 
   useEffect(() => {
     setPlayerIdOrder(playerData.constructor.getPlayerIds());
-    console.log('shuffle', playerIdOrder);
   }, [numClicked, isGameOver]);
-
-  useEffect(() => {
-    console.log('click', numClicked);
-    setCurrentScore(currentScore + 1);
-  }, [numClicked]);
 
   useEffect(() => {
     if (isGameOver) {
@@ -30,9 +25,17 @@ function App() {
       setCurrentScore(0);
       setNumClicked(Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])));
       setIsGameOver(false);
+      isMounted.current = false;
     }
-    console.log('gameover?');
   }, [isGameOver]);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+    setCurrentScore(currentScore + 1);
+  }, [numClicked]);
 
   function cardClicked(e) {
     const cardId = e.target.closest('.card').id.slice(5);
@@ -42,7 +45,6 @@ function App() {
     } else {
       setNumClicked({ ...numClicked, [cardId]: cardPrevClicked + 1 });
     }
-    console.log('card', numClicked);
   }
 
   return (
