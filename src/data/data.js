@@ -16,7 +16,9 @@ class PlayerData {
       12: 'Devin_Booker',
       13: 'James_Harden',
       14: 'Kawhi_Leonard',
-      15: 'Damian Lillard',
+      15: 'Damian_Lillard',
+      16: 'Anthony_Davis',
+      17: 'Trae Young',
     };
   }
 
@@ -25,7 +27,7 @@ class PlayerData {
   }
 
   static getPlayerIds() {
-    const playerIds = [...Array(16).keys()];
+    const playerIds = [...Array(18).keys()];
     let index = playerIds.length;
     let random;
 

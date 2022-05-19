@@ -5,13 +5,14 @@ import Board from './components/Board';
 import playerData from './data/data';
 
 function App() {
+  const arrayLength = 18;
   const isMounted = useRef(false);
 
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [playerIdOrder, setPlayerIdOrder] = useState([]);
   const [numClicked, setNumClicked] = useState(
-    Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])),
+    Object.fromEntries([...Array(arrayLength).keys()].map((key) => [key, 0])),
   );
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -23,7 +24,7 @@ function App() {
     if (isGameOver) {
       setBestScore(Math.max(bestScore, currentScore));
       setCurrentScore(0);
-      setNumClicked(Object.fromEntries([...Array(16).keys()].map((key) => [key, 0])));
+      setNumClicked(Object.fromEntries([...Array(arrayLength).keys()].map((key) => [key, 0])));
       setIsGameOver(false);
       isMounted.current = false;
     }
