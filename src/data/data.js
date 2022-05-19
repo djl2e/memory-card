@@ -38,3 +38,7 @@ class PlayerData {
     return playerIds;
   }
 }
+
+const playerData = new PlayerData();
+
+export default playerData;
