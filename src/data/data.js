@@ -15,7 +15,7 @@ class PlayerData {
       11: 'Ja_Morant',
       12: 'Devin_Booker',
       13: 'James_Harden',
-      14: 'Karl_Anthony_Towns',
+      14: 'Kawhi_Leonard',
       15: 'Damian Lillard',
     };
   }

@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     setPlayerIdOrder(playerData.constructor.getPlayerIds());
-  });
+  }, [numClicked, isGameOver]);
 
   useEffect(() => {
     setCurrentScore(currentScore + 1);
@@ -31,12 +31,13 @@ function App() {
   }, [isGameOver]);
 
   function cardClicked(e) {
-    const cardId = e.target.closest('.card').id;
+    const cardId = e.target.closest('.card').id.slice(5);
     const cardPrevClicked = numClicked[cardId];
     if (cardPrevClicked === 1) {
       setIsGameOver(true);
     } else {
-      setNumClicked({ ...numClicked, cardId: cardPrevClicked + 1 });
+      setNumClicked({ ...numClicked, [cardId]: cardPrevClicked + 1 });
+      console.log(cardId, numClicked);
     }
   }
 

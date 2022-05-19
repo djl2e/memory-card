@@ -16,7 +16,7 @@ function Card(props) {
   }, []);
 
   return (
-    <div className="card" id={`card-${playerId}`}>
+    <div className="card" id={`card-${playerId}`} key={`key-${playerId}`}>
       <img src={imgSrc} alt="player thumbnail" />
       <p>{playerName.replace('_', ' ')}</p>
     </div>
